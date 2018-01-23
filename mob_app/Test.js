@@ -22,7 +22,7 @@ class Test extends Component {
             To get started, edit App.js
             </Text>
             <Button
-            onPress={()=> this.props.authSuccess('lindo<3')}
+            onPress={()=> this.props.authSuccess('Redux')}
             title="Learn More"
             color="#841584"
             accessibilityLabel="Learn more about this purple button" />
