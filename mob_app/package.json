@@ -7,12 +7,16 @@
     "test": "jest"
   },
   "dependencies": {
+    "axios": "^0.17.1",
     "react": "16.2.0",
     "react-native": "0.52.0",
+    "react-navigation": "^1.0.0-beta.27",
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
     "redux-persist": "^5.5.0",
-    "remote-redux-devtools": "^0.5.12"
+    "redux-thunk": "^2.2.0",
+    "remote-redux-devtools": "^0.5.12",
+    "styled-components": "^3.0.2"
   },
   "devDependencies": {
     "babel-jest": "22.1.0",
