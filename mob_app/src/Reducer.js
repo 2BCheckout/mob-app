@@ -1,7 +1,9 @@
-import auth from "./auth/Reducer";
+import auth from './auth/Reducer'
+import nav from './navigation/Reducer'
 
 const mainReducer = {
-    auth
+    auth,
+    nav
 }
 
 export default mainReducer;
