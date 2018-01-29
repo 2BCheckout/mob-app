@@ -9,21 +9,21 @@ const initState = {
 const reducer = (state=initState, action) => {
     switch(action.type) {
         case AUTH_SUCCESS:
-        return {
-            ...state,
-            username: action.username,
-            isAuthenticated: true,
-            error: '0'
-        }
+            return {
+                ...state,
+                username: action.username,
+                isAuthenticated: true,
+                error: '0'
+            }
         case AUTH_FAILURE:
-        return {
-            ...state,
-            error: action.error
-        }
+            return {
+                ...state,
+                error: action.error
+            }
         case AUTH_LOGOUT:
-        return initState;
+            return initState;
         default:
-        return state;
+            return state;
     }
 }
 

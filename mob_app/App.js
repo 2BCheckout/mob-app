@@ -8,7 +8,7 @@ import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/es/integration/react';
 import configureStore from './src/Store';
-import LoginView from './src/auth/containers/LoginView';
+import AppWithNavigationState from './src/navigation/containers/AppWithNavigationState';
 import axios from 'axios';
 import { API_URL } from './src/Constants';
 
@@ -21,7 +21,7 @@ export default class App extends Component<{}> {
       <Provider store={store}>
         <PersistGate persistor={persistor}>
 
-          <LoginView/>
+          <AppWithNavigationState/>
 
         </PersistGate>
       </Provider>
