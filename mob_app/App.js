@@ -8,13 +8,12 @@ import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/es/integration/react';
 import configureStore from './src/Store';
-import Test from './Test';
-
-
-
-import { AuthSuccess } from './src/auth/AuthAction';
+import LoginView from './src/auth/containers/LoginView';
+import axios from 'axios';
+import { API_URL } from './src/Constants';
 
 const { persistor, store } = configureStore();
+axios.defaults.baseURL = API_URL;
 
 export default class App extends Component<{}> {
   render() {
@@ -22,7 +21,7 @@ export default class App extends Component<{}> {
       <Provider store={store}>
         <PersistGate persistor={persistor}>
 
-          <Test/>
+          <LoginView/>
 
         </PersistGate>
       </Provider>
