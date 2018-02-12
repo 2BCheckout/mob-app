@@ -1,10 +1,10 @@
-import { AUTH_SUCCESS, AUTH_FAILURE, AUTH_LOGOUT } from "./Action";
+import { AUTH_SUCCESS, AUTH_FAILURE, AUTH_LOGOUT } from "./Action"
 
 const initState = {
     username: '',
     isAuthenticated: false,
     error: '0'
-};
+}
 
 const reducer = (state=initState, action) => {
     switch(action.type) {
@@ -21,10 +21,10 @@ const reducer = (state=initState, action) => {
                 error: action.error
             }
         case AUTH_LOGOUT:
-            return initState;
+            return initState
         default:
-            return state;
+            return state
     }
 }
 
-export default reducer;
+export default reducer

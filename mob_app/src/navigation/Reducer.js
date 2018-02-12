@@ -1,16 +1,16 @@
 import StackNavigator from './components/StackNavigator'
 import { AUTH_SUCCESS, AUTH_LOGOUT } from '../auth/Action'
 
-const HomeAction = StackNavigator.router.getActionForPathAndParams('Home');
-const HomeNavState = StackNavigator.router.getStateForAction(HomeAction);
+const DrawerNavigatorAction = StackNavigator.router.getActionForPathAndParams('DrawerNavigator')
+const DrawerNavigatorNavState = StackNavigator.router.getStateForAction(DrawerNavigatorAction)
 
-const LoginAction = StackNavigator.router.getActionForPathAndParams('Login');
-const LoginNavState = StackNavigator.router.getStateForAction(LoginAction);
+const LoginAction = StackNavigator.router.getActionForPathAndParams('Login')
+const LoginNavState = StackNavigator.router.getStateForAction(LoginAction)
 
 const nav = (state = LoginNavState, action) => {
     switch (action.type) {
         case AUTH_SUCCESS:
-            return HomeNavState
+            return DrawerNavigatorNavState
         case AUTH_LOGOUT:
             return LoginNavState
         default:
@@ -18,4 +18,4 @@ const nav = (state = LoginNavState, action) => {
     }
 }
 
-export default nav;
+export default nav

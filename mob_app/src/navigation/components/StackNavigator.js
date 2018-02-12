@@ -1,10 +1,9 @@
 import { StackNavigator } from 'react-navigation'
 import LoginView from '../../auth/containers/LoginView'
-import HomeView from '../../home/components/Home'
+import DrawerNavigator from './DrawerNavigator'
 
 const stackNavigator = StackNavigator({
-    Login: { screen: LoginView },
-    Home: { screen: HomeView },
+    Login: { screen: LoginView }
 }, {
     headerMode: 'none'
 })

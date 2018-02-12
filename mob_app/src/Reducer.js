@@ -6,4 +6,4 @@ const mainReducer = {
     nav
 }
 
-export default mainReducer;
+export default mainReducer
