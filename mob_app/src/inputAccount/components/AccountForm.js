@@ -25,8 +25,8 @@ export default class AccountForm extends Component {
         this.state({ accountNumber })
     }
 
-    render = () => {
-        let = { isStudentActive } = this.props
+    render () {
+        let { isStudentActive } = this.props
 
         return (
             <View>

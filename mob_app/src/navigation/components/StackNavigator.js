@@ -1,9 +1,10 @@
 import { StackNavigator } from 'react-navigation'
 import LoginView from '../../auth/containers/LoginView'
-import DrawerNavigator from './DrawerNavigator'
+import DrawerNavigator from './DrawerNav'
 
 const stackNavigator = StackNavigator({
-    Login: { screen: LoginView }
+    Login: { screen: LoginView },
+    DrawerNavigator: { screen: DrawerNavigator }
 }, {
     headerMode: 'none'
 })
