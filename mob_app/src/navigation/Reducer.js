@@ -1,7 +1,7 @@
 import StackNavigator from './components/StackNavigator'
 import { AUTH_SUCCESS, AUTH_LOGOUT } from '../auth/Action'
 
-const DrawerNavigatorAction = StackNavigator.router.getActionForPathAndParams('DrawerNavigator')
+const DrawerNavigatorAction = StackNavigator.router.getActionForPathAndParams('DrawerNav')
 const DrawerNavigatorNavState = StackNavigator.router.getStateForAction(DrawerNavigatorAction)
 
 const LoginAction = StackNavigator.router.getActionForPathAndParams('Login')
