@@ -8,7 +8,7 @@ import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/es/integration/react';
 import configureStore from './src/Store';
-import AppWithNavigationState from './src/navigation/containers/AppWithNavigationState';
+import StackNav from './src/stackNavigation/components/StackNav';
 import axios from 'axios';
 import { API_URL } from './src/Constants';
 
@@ -21,7 +21,7 @@ export default class App extends Component<{}> {
       <Provider store={store}>
         <PersistGate persistor={persistor}>
 
-          <AppWithNavigationState/>
+          <StackNav/>
 
         </PersistGate>
       </Provider>

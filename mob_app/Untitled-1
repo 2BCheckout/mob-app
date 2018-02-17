@@ -1,0 +1,15 @@
+
+  .big-picture
+    height: 285px
+    position: relative
+    overflow: hidden
+    font-size: 3rem
+    font-weight: bold
+    img
+      display: block
+      width: 100%
+      position: absolute
+      top: 0
+      left: 0
+      bottom: 0
+      right: 0
