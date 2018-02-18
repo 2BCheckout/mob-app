@@ -1,14 +1,13 @@
 import { StackNavigator } from 'react-navigation'
-import LoginView from '../../auth/containers/LoginView'
-import HomeNav from '../../home/components/Home'
 import AppNavigator from '../containers/MainNavigator'
+import DrawerNav from '../../drawerNavigation/components/DrawerNav'
 
 const StackNav = StackNavigator({
     Login: {
         screen: AppNavigator,
     },
     Home: {
-        screen: HomeNav
+        screen: DrawerNav
     }
 },{
     initialRouteName: 'Login',

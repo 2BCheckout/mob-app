@@ -1,15 +1,13 @@
 import React from 'react'
 import { Button, View, Text } from 'react-native'
+import LoginView from '../../auth/containers/LoginView'
 
 class AppNavigator extends React.Component {
     render() {
       return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <View>
           <Text>Login Screen</Text>
-          <Button
-            title="Login"
-            onPress={() => this.props.navigation.navigate('Home')}
-          />
+          <LoginView navigation = { this.props.navigation }/>
         </View>
       );
     }

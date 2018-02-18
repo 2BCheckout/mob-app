@@ -42,7 +42,7 @@ export default class LoginForm extends Component {
                 <TextInput placeholder = 'password'onChangeText={ this._setPassword }/>
                 <Button title = 'Login' onPress = { () => { doLogin(this.state.username, this.state.password) }}/>
                 { (error !== '0') && <Text> { error } </Text> }
-                { isAuthenticated && <Text> { 'Success!' } </Text> }
+                { isAuthenticated && this.props.navigation.navigate('Home') }
             </View>
         )
     }
