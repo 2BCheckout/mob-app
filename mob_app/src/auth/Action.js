@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { API_URL } from '../Constants';
+import Toaster from '../helpers/FetchToast'
 
 export const AUTH_SUCCESS = 'AUTH_SUCESS';
 export const AUTH_FAILURE = 'AUTH_FAILURE';
