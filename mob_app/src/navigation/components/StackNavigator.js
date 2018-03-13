@@ -3,7 +3,7 @@ import LoginView from '../../auth/containers/LoginView'
 import HomeView from '../../drawerNavigation/components/DrawerNav'
 
 const stackNavigator = StackNavigator({
-    Login: { screen: HomeView },
+    Login: { screen: LoginView },
     Drawer: { screen: HomeView },
 }, {
     headerMode: 'none',

@@ -1,6 +1,7 @@
 import { DrawerNavigator } from 'react-navigation'
 import HomeNav from '../../home/components/Home'
-import StudentStats from '../../studentStats/components/StudentStats'
+// import StudentVerifier from '../../studentVerifier/components/StudentForm'
+import StudentView from '../../studentVerifier/containers/StudentView'
 import LoginView from '../../auth/containers/LoginView'
 
 const DrawerNav = DrawerNavigator({
@@ -8,7 +9,7 @@ const DrawerNav = DrawerNavigator({
       screen: HomeNav,
     },
     Student: {
-        screen: StudentStats
+        screen: StudentView
     },
     Logout: {
         screen: LoginView
