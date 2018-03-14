@@ -13,7 +13,6 @@ import axios from 'axios';
 import { API_URL } from './src/Constants';
 
 const { persistor, store } = configureStore();
-axios.defaults.baseURL = API_URL;
 
 export default class App extends Component {
   render() {

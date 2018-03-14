@@ -45,8 +45,8 @@ export default class LoginForm extends Component {
             <View>
                 <TextInput placeholder = 'username' onChangeText={ this._setUsername }/>
                 <TextInput placeholder = 'password'onChangeText={ this._setPassword }/>
-                <TextInput placeholder = 'API URL'onChangeText={ this._setPassword }/>
-                <Button title = 'Login' onPress = { () => { doLogin(this.state.username, this.state.password) }}/>
+                <TextInput placeholder = 'API URL'onChangeText={ this._setAPIURL }/>
+                <Button title = 'Login' onPress = { () => { doLogin(this.state.username, this.state.password, this.state.apiUrl) }}/>
                 { (error !== '0') && <Text> { error } </Text> }
                 { isAuthenticated && <Text> { 'Success!' } </Text> }
             </View>

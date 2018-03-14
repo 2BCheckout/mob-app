@@ -24,11 +24,12 @@ export const AuthLogout = () => ({
     type: AUTH_LOGOUT
 })
 
-export const DoLogin = (username, password) => {
+export const DoLogin = (username, password, apiUrl, navigate) => {
     return (dispatch) => {
         axios
-        .post('/userAccounts/login?include=user', { username, password })
+        .post(`${apiUrl}/api/userAccounts/login?include=user`, { username, password })
         .then(response => {
+            axios.defaults.baseURL = apiUrl + "/api";
             axios.defaults.headers.common['Authorization'] = response.data.id;
             dispatch(AuthSuccess(response.data));
         })

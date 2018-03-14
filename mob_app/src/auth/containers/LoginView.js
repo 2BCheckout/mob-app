@@ -10,9 +10,9 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
-        doLogin: (username, password) => {
-            dispatch(DoLogin(username, password))
-            dispatch(NavigationActions.navigate({ routeName: 'Drawer' }))
+        doLogin: (username, password, apiURL) => {
+            dispatch(DoLogin(username, password, apiURL))
+            //dispatch(NavigationActions.navigate({ routeName: 'Drawer' }))
         }
     }
 }
