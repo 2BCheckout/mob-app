@@ -9,7 +9,8 @@ export const AUTH_LOGOUT = 'AUTH_LOGOUT';
 export const AuthSuccess = (data) => {
     return {
         type: AUTH_SUCCESS,
-        username: data.user.name
+        username: data.user.name,
+        token: data.id
     }
 }
 
@@ -25,11 +26,11 @@ export const AuthLogout = () => ({
 })
 
 export const DoLogin = (username, password, apiUrl, navigate) => {
+    axios.defaults.baseURL = apiUrl + "/api";
     return (dispatch) => {
         axios
         .post(`${apiUrl}/api/userAccounts/login?include=user`, { username, password })
         .then(response => {
-            axios.defaults.baseURL = apiUrl + "/api";
             axios.defaults.headers.common['Authorization'] = response.data.id;
             dispatch(AuthSuccess(response.data));
         })
@@ -40,13 +41,15 @@ export const DoLogin = (username, password, apiUrl, navigate) => {
 }
 
 export const DoLogout = () => {
-    axios
-    .post('/userAccounts/logout')
-    .then(response => {
-        axios.defaults.headers.common['Authorization'] = null
-        dispatch(AuthLogout())
-    })
-    .catch(error => {
-        //TODO TOASTER NOTIFICATION
-    })
+    return (dispatch) => {
+        axios
+        .post('/userAccounts/logout')
+        .then(response => {
+            axios.defaults.headers.common['Authorization'] = null
+            dispatch(AuthLogout())
+        })
+        .catch(error => {
+            //TODO TOASTER NOTIFICATION
+        })
+    }
 }

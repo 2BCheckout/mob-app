@@ -26,6 +26,11 @@ export default class LoginForm extends Component {
         }
     }
 
+    componentWillMount() {
+        if(this.props.token)
+            this.props.doLogout()
+    }
+
     _setUsername = (username) => {
         this.setState({...this.state, username})
     }
@@ -47,8 +52,6 @@ export default class LoginForm extends Component {
                 <TextInput placeholder = 'password'onChangeText={ this._setPassword }/>
                 <TextInput placeholder = 'API URL'onChangeText={ this._setAPIURL }/>
                 <Button title = 'Login' onPress = { () => { doLogin(this.state.username, this.state.password, this.state.apiUrl) }}/>
-                { (error !== '0') && <Text> { error } </Text> }
-                { isAuthenticated && <Text> { 'Success!' } </Text> }
             </View>
         )
     }

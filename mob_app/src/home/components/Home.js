@@ -93,6 +93,11 @@ export default class Home extends Component {
 
     generateRoutes = () =>  this.state.routes.map(item => <Picker.Item label={item.name} value={item.id} key={item.id} />)
 
+    getRoute = (id) => this.state.routes.map(item => {
+        if (item.id === id)
+            this.setState({ selectedRoute: item});
+    })
+
     render() {
         return (
             <View style={{ flexGrow: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -101,7 +106,7 @@ export default class Home extends Component {
                 <Picker
                     style={{width: 200}} 
                     selectedValue={this.state.selectedRoute.id}
-                    onValueChange={(loc) => this.setState({selectedRoute: loc})}>
+                    onValueChange={this.getRoute}>
                     { this.generateRoutes() }
                 </Picker>
                 <StyledButton title = 'Start Ride' onPress = { () => { this.emitLocation() }}/>

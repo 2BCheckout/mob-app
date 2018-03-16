@@ -3,6 +3,7 @@ import { AUTH_SUCCESS, AUTH_FAILURE, AUTH_LOGOUT } from "./Action";
 const initState = {
     username: '',
     isAuthenticated: false,
+    token: null,
     error: '0'
 };
 
@@ -12,6 +13,7 @@ const reducer = (state=initState, action) => {
             return {
                 ...state,
                 username: action.username,
+                token: action.token,
                 isAuthenticated: true,
                 error: '0'
             }
