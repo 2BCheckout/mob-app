@@ -32,11 +32,12 @@ export default class LoginForm extends Component {
 
     render() {
         let { doValidation, error, isStudent } = this.props;
+        const apiUrl = this.props.screenProps.apiUrl
 
         return (
             <View>
                 <TextInput placeholder = 'Account Number' onChangeText={ this._setAccountNumber }/>
-                <Button title = 'Validate Student' onPress = { () => { doValidation(this.state.accountNumber) }}/>
+                <Button title = 'Validate Student' onPress = { () => { doValidation(this.state.accountNumber, apiUrl) }}/>
                 { (error !== '0') && <Text> { error } </Text> }
             </View>
         )

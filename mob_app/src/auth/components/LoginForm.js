@@ -14,6 +14,7 @@ export default class LoginForm extends Component {
         error: PropTypes.string,
         isAuthenticated: PropTypes.bool,
         doLogin: PropTypes.func.isRequired,
+        doLogout: PropTypes.func.isRequired,
     }
 
     constructor(props) {
@@ -22,13 +23,13 @@ export default class LoginForm extends Component {
         this.state = {
             username: '',
             password: '',
-            apiUrl: ''
+            apiUrl: props.screenProps.apiUrl ? props.screenProps.apiUrl : ''
         }
     }
 
     componentWillMount() {
         if(this.props.token)
-            this.props.doLogout()
+            this.props.doLogout(this.state.apiUrl, this.props.screenProps.token)
     }
 
     _setUsername = (username) => {
@@ -49,8 +50,8 @@ export default class LoginForm extends Component {
         return (
             <View>
                 <TextInput placeholder = 'username' onChangeText={ this._setUsername }/>
-                <TextInput placeholder = 'password'onChangeText={ this._setPassword }/>
-                <TextInput placeholder = 'API URL'onChangeText={ this._setAPIURL }/>
+                <TextInput secureTextEntry placeholder = 'password'onChangeText={ this._setPassword }/>
+                <TextInput placeholder = 'API URL'onChangeText={ this._setAPIURL } value={this.state.apiUrl}/>
                 <Button title = 'Login' onPress = { () => { doLogin(this.state.username, this.state.password, this.state.apiUrl) }}/>
             </View>
         )

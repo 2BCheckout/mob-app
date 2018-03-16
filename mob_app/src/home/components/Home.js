@@ -20,7 +20,6 @@ export default class Home extends Component {
     _minutes = 5;
     constructor(props) {
         super(props);
-    
         this.state = {
           latitude: null,
           longitude: null,
@@ -47,7 +46,8 @@ export default class Home extends Component {
     }
 
     populateRoutes = () => {
-        axios.get('/Routes').then(response => {
+        const apiUrl = this.props.screenProps.apiUrl
+        axios.get(`${apiUrl}/Routes`).then(response => {
             const _routes = response.data.map(item => { return { name: item.name, id: item.id } });
             this.setState({routes: _routes, selectedRoute: _routes[0].id});
         })
@@ -57,7 +57,7 @@ export default class Home extends Component {
     }
 
     writeToDB = () => {
-        console.log(this.state.selectedRoute)
+    const apiUrl = this.props.screenProps.apiUrl
         
         const data = {
             "routeId": this.state.selectedRoute,
@@ -68,7 +68,7 @@ export default class Home extends Component {
         }
 
         axios
-        .post('/Rides', data)
+        .post(`${apiUrl}/Rides`, data)
         .then(response => {
             console.log(response);
         })
