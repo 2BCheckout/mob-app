@@ -22,12 +22,12 @@ export const StudentValidationFailure = (data) => {
     }
 }
 
-export const DoValidate = (accountNumber) => {
+export const DoValidate = (accountNumber, apiUrl) => {
     return (dispatch) => {
         let isStudent = false
 
         return axios
-        .get(`/Students/findOne?filter={"where":{"account_number":${accountNumber}}}`)
+        .get(`${apiUrl}/Students/findOne?filter={"where":{"account_number":${accountNumber}}}`)
         .then(response => {
             isStudent = true
             dispatch(getStudentStatus(response.data))

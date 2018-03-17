@@ -3,6 +3,8 @@ import { AUTH_SUCCESS, AUTH_FAILURE, AUTH_LOGOUT } from "./Action";
 const initState = {
     username: '',
     isAuthenticated: false,
+    token: null,
+    apiUrl: '',
     error: '0'
 };
 
@@ -12,16 +14,22 @@ const reducer = (state=initState, action) => {
             return {
                 ...state,
                 username: action.username,
+                token: action.token,
                 isAuthenticated: true,
-                error: '0'
+                error: '0',
+                apiUrl: action.apiUrl
             }
         case AUTH_FAILURE:
             return {
                 ...state,
-                error: action.error
+                error: action.error,
+                apiUrl: action.apiUrl
             }
         case AUTH_LOGOUT:
-            return initState;
+            return {
+                ...initState,
+                apiUrl: action.apiUrl
+            };
         default:
             return state;
     }

@@ -11,8 +11,8 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        doValidation: (accountNumber) => {
-            dispatch(DoValidate(accountNumber))
+        doValidation: (accountNumber, apiUrl) => {
+            dispatch(DoValidate(accountNumber, apiUrl))
         }
     }
 }
