@@ -17,7 +17,7 @@ const StyledButton = styled.Button`
 `
 
 export default class Home extends Component {
-    _minutes = 5;
+    _minutes = 1;
     constructor(props) {
         super(props);
         this.state = {
@@ -25,7 +25,8 @@ export default class Home extends Component {
           longitude: null,
           error: null,
           selectedRoute: '1',
-          routes: []
+          routes: [],
+          rideID: ''
         };
       }
     
@@ -57,8 +58,14 @@ export default class Home extends Component {
     }
 
     writeToDB = () => {
-    const apiUrl = this.props.screenProps.apiUrl
-        
+        const apiUrl = this.props.screenProps.apiUrl
+
+        this.state.rideID === '' ? this.createRide(apiUrl) : this.updateRide(apiUrl)
+    }
+
+    createRide(apiUrl) {
+        console.log('create ride')
+
         const data = {
             "routeId": this.state.selectedRoute,
             "plate": "string",
@@ -69,6 +76,25 @@ export default class Home extends Component {
 
         axios
         .post(`${apiUrl}/Rides`, data)
+        .then(response => {
+            if(response.status === 200 && response.data.id)
+                this.setState({...this.state, rideID: response.data.id})
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+    }
+
+    updateRide(apiUrl) {
+        console.log('update ride')
+
+        const data = {
+            "latitude": this.state.latitude,
+            "longitude": this.state.longitude
+        }
+
+        axios
+        .patch(`${apiUrl}/Rides/${this.state.rideID}`, data)
         .then(response => {
             console.log(response);
         })
