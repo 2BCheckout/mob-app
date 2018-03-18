@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import styled from 'styled-components';
 import { View, Picker } from 'react-native'
 import axios from 'axios'
+import KeepAwake from 'react-native-keep-awake'
 
 // const View = styled.View`
 //     margin: 20% 10%;
@@ -64,7 +65,6 @@ export default class Home extends Component {
     }
 
     createRide(apiUrl) {
-        console.log('create ride')
 
         const data = {
             "routeId": this.state.selectedRoute,
@@ -86,7 +86,6 @@ export default class Home extends Component {
     }
 
     updateRide(apiUrl) {
-        console.log('update ride')
 
         const data = {
             "latitude": this.state.latitude,
@@ -113,6 +112,7 @@ export default class Home extends Component {
     }
 
     emitLocation = () => {
+        KeepAwake.activate();
         this.writeToDB();
         setInterval(this.writeToDB, this.minutesInMillis(this._minutes));
     }
