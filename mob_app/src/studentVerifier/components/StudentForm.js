@@ -38,7 +38,6 @@ export default class LoginForm extends Component {
             <View>
                 <TextInput placeholder = 'Account Number' onChangeText={ this._setAccountNumber }/>
                 <Button title = 'Validate Student' onPress = { () => { doValidation(this.state.accountNumber, apiUrl) }}/>
-                { (error !== '0') && <Text> { error } </Text> }
             </View>
         )
     }

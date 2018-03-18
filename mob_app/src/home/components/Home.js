@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import styled from 'styled-components';
 import { View, Picker } from 'react-native'
 import axios from 'axios'
+import Toaster from '../../helpers/FetchToast'
 
 // const View = styled.View`
 //     margin: 20% 10%;
@@ -28,9 +29,9 @@ export default class Home extends Component {
           routes: [],
           rideID: ''
         };
-      }
-    
-    componentWillMount() {
+    }
+
+    activateGeolocation = () => {
         this.watchId = navigator.geolocation.watchPosition(
             (position) => {
             this.setState({
@@ -39,11 +40,20 @@ export default class Home extends Component {
                 error: null,
             });
             },
-            (error) => this.setState({ error: error.message }),
+            (error) => {
+                this.setState({ error: error.message })
+                Toaster('Error', 'Geolocalizacion esta apagada!', () => {
+                    navigator.geolocation.clearWatch(this.watchId)
+                    this.activateGeolocation()
+                })
+            },
             { enableHighAccuracy: false, timeout: 20000, maximumAge: 1000, distanceFilter: 10 },
         );
-
-        this.populateRoutes();
+    }
+    
+    componentWillMount() {
+        this.activateGeolocation()
+        this.populateRoutes()
     }
 
     populateRoutes = () => {
@@ -54,6 +64,9 @@ export default class Home extends Component {
         })
         .catch((error) => {
             console.log(error);
+            Toaster('Error!', `Error al solicitar rutas: ${error.message}`, () => {
+                this.populateRoutes()
+            })
         });
     }
 
@@ -63,7 +76,7 @@ export default class Home extends Component {
         this.state.rideID === '' ? this.createRide(apiUrl) : this.updateRide(apiUrl)
     }
 
-    createRide(apiUrl) {
+    createRide = (apiUrl) => {
         console.log('create ride')
 
         const data = {
@@ -81,11 +94,14 @@ export default class Home extends Component {
                 this.setState({...this.state, rideID: response.data.id})
         })
         .catch((error) => {
-            console.log(error);
+            console.log(error)
+            Toaster('El viaje no ha comenzado!', `Problemas al crear viaje: ${error.message}`, () => {
+                this.createRide(apiUrl)
+            })
         });
     }
 
-    updateRide(apiUrl) {
+    updateRide = (apiUrl) => {
         console.log('update ride')
 
         const data = {
@@ -99,7 +115,10 @@ export default class Home extends Component {
             console.log(response);
         })
         .catch((error) => {
-            console.log(error);
+            console.log(error)
+            Toaster('Error!', `Problemas para actualizar viaje: ${error.message}`, () => {
+                this.updateRide(apiUrl)
+            })
         });
     }
 

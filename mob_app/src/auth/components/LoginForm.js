@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import Toaster from '../../helpers/FetchToast'
 
 const View = styled.View`
     margin: 20% 10%;
