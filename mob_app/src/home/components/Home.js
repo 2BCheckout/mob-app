@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { View, Picker } from 'react-native'
 import axios from 'axios'
 import KeepAwake from 'react-native-keep-awake'
+// import endRide from '../Services'
 
 // const View = styled.View`
 //     margin: 20% 10%;
@@ -17,18 +18,26 @@ const StyledButton = styled.Button`
     color=#841584;
 `
 
+const stopRideMsg = 'Stop Ride'
+const startRideMsg = 'Start Ride'
+
 export default class Home extends Component {
     _minutes = 1;
+
+    _initialState = {
+        latitude: null,
+        longitude: null,
+        error: null,
+        selectedRoute: '1',
+        routes: [],
+        rideID: '',
+        intervalID: '',
+        btnMsg: startRideMsg
+    };
+
     constructor(props) {
         super(props);
-        this.state = {
-          latitude: null,
-          longitude: null,
-          error: null,
-          selectedRoute: '1',
-          routes: [],
-          rideID: ''
-        };
+        this.state = this._initialState;
       }
     
     componentWillMount() {
@@ -78,7 +87,7 @@ export default class Home extends Component {
         .post(`${apiUrl}/Rides`, data)
         .then(response => {
             if(response.status === 200 && response.data.id)
-                this.setState({...this.state, rideID: response.data.id})
+                this.setState({...this.state, rideID: response.data.id, btnMsg: stopRideMsg})
         })
         .catch((error) => {
             console.log(error);
@@ -124,6 +133,35 @@ export default class Home extends Component {
             this.setState({ selectedRoute: item});
     })
 
+    startAction = () => {
+        const apiUrl = this.props.screenProps.apiUrl
+        const { intervalID, btnMsg } = this.state
+
+        btnMsg === startRideMsg
+        ? this.emitLocation()
+        : this.endRide(apiUrl, intervalID, this.setState, this._initialState)
+
+    }
+
+    endRide = (apiUrl, intervalID, setState, state) => {
+
+        const data = {
+            isActive: false
+        }
+    
+        axios
+        .patch(`${apiUrl}/Rides/${this.state.rideID}`, data)
+        .then(response => {
+            if(response.status === 200 && !response.data.isActive) {
+                clearInterval(intervalID)
+                this.setState({state})
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+    }
+
     render() {
         return (
             <View style={{ flexGrow: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -135,7 +173,7 @@ export default class Home extends Component {
                     onValueChange={this.getRoute}>
                     { this.generateRoutes() }
                 </Picker>
-                <StyledButton title = 'Start Ride' onPress = { () => { this.emitLocation() }}/>
+                <StyledButton title = {this.state.btnMsg} onPress = { () => { this.startAction() }}/>
             </View>
         );
     }
