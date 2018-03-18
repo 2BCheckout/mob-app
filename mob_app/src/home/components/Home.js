@@ -80,7 +80,8 @@ export default class Home extends Component {
             "plate": "string",
             "date": new Date(),
             "latitude": this.state.latitude,
-            "longitude": this.state.longitude
+            "longitude": this.state.longitude,
+            "isActive": true
         }
 
         axios
@@ -139,12 +140,15 @@ export default class Home extends Component {
 
         btnMsg === startRideMsg
         ? this.emitLocation()
-        : this.endRide(apiUrl, intervalID, this.setState, this._initialState)
+        : this.endRide(apiUrl, intervalID, this._initialState)
 
     }
 
-    endRide = (apiUrl, intervalID, setState, state) => {
+    endRide = (apiUrl, intervalID, state) => {
+        this.rideTerminationIntervalID = setInterval(this.postRideTermination, this.minutesInMillis(this._minutes))
+    }
 
+    postRideTermination(apiUrl, intervalID, state) {
         const data = {
             isActive: false
         }
@@ -155,6 +159,7 @@ export default class Home extends Component {
             if(response.status === 200 && !response.data.isActive) {
                 clearInterval(intervalID)
                 this.setState({state})
+                clearInterval(this.rideTerminationIntervalID)
             }
         })
         .catch((error) => {
