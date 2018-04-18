@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import styled from 'styled-components';
-import { View, Picker } from 'react-native'
+import { View, Picker, AsyncStorage } from 'react-native'
 import axios from 'axios'
 import Toaster from '../../helpers/FetchToast'
 import KeepAwake from 'react-native-keep-awake'
@@ -44,6 +44,21 @@ export default class Home extends Component {
     componentWillMount() {
         this.activateGeolocation()
         this.populateRoutes()
+
+        AsyncStorage.multiGet(['rideStatus','rideId'])
+            .then(response => {
+                const [[sKey, rideStatus], [iKey, rideId]] = response
+                console.log(rideStatus)
+                console.log(response)
+                if (rideStatus)
+                    this.setState({...this.state, btnMsg: stopRideMsg})
+                if(rideId){
+                    this.setState({...this.state, rideID: rideId})
+                }
+            })
+            .catch(error => {
+                console.log(error)
+            })
     }
 
     populateRoutes = () => {
@@ -81,8 +96,13 @@ export default class Home extends Component {
         .post(`${apiUrl}/Rides`, data)
         .then(response => {
             console.log('create ride',response)
-            if(response.status === 200 && response.data.id)
-                this.setState({...this.state, rideID: response.data.id, btnMsg: stopRideMsg})
+            if(response.status === 200 && response.data.id){
+                this.setState({...this.state, rideID: response.data.id, btnMsg: stopRideMsg}, () => {
+                    console.log('======================')
+                    AsyncStorage.multiSet([['rideStatus', 'Active'], ['rideId', response.data.id.toString()]]);
+                })
+
+            }
         })
         .catch((error) => {
             console.log(error.response)
@@ -180,6 +200,7 @@ export default class Home extends Component {
                 clearInterval(intervalID)
                 this.setState({...this.state, btnMsg: startRideMsg})
                 console.log('end ride',response)
+                AsyncStorage.removeItem('rideStatus');
             }
         })
         .catch((error) => {
