@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { API_URL } from '../Constants';
 import Toaster from '../helpers/FetchToast'
+import { AsyncStorage } from 'react-native'
 
 export const AUTH_SUCCESS = 'AUTH_SUCESS';
 export const AUTH_FAILURE = 'AUTH_FAILURE';
@@ -34,6 +35,11 @@ export const DoLogin = (username, password, apiUrl, navigate) => {
 }
 
 export const DoLogout = (apiUrl, token) => {
+    AsyncStorage.getItem('rideStatus', (error, result) => {
+        if (result === 'Active') {
+            AsyncStorage.multiRemove(['rideStatus', 'rideId'])
+        }
+    });
     axios.defaults.headers.common['Authorization'] = token
 
     return axios.post(`${apiUrl}/userAccounts/logout`)
