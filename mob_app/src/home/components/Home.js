@@ -53,8 +53,8 @@ export default class Home extends Component {
             this.setState({routes: _routes, selectedRoute: _routes[0].id});
         })
         .catch((error) => {
-            console.log(error);
-            Toaster('Error!', `Error al solicitar rutas: ${error.message}`, () => {
+            console.log(error.response);
+            Toaster('Error!', `Error al solicitar rutas: ${error.response}`, () => {
                 this.populateRoutes()
             })
         });
@@ -85,7 +85,7 @@ export default class Home extends Component {
                 this.setState({...this.state, rideID: response.data.id, btnMsg: stopRideMsg})
         })
         .catch((error) => {
-            console.log(error)
+            console.log(error.response)
             Toaster('El viaje no ha comenzado!', `Problemas al crear viaje: ${error.message}`, () => {
                 this.createRide(apiUrl)
             })
@@ -105,7 +105,7 @@ export default class Home extends Component {
             console.log('update ride',response)
         })
         .catch((error) => {
-            console.log(error)
+            console.log(error.response)
             Toaster('Error!', `Problemas para actualizar viaje: ${error.message}`, () => {
                 this.updateRide(apiUrl)
             })
@@ -155,7 +155,7 @@ export default class Home extends Component {
 
     getRoute = (id) => this.state.routes.map(item => {
         if (item.id === id)
-            this.setState({ selectedRoute: item});
+            this.setState({ selectedRoute: item.id});
     })
 
     startAction = () => {
@@ -198,7 +198,7 @@ export default class Home extends Component {
                 {this.state.error ? <Text>Error: {this.state.error}</Text> : null}
                 <Picker
                     style={{width: 200}} 
-                    selectedValue={this.state.selectedRoute.id}
+                    selectedValue={this.state.selectedRoute}
                     onValueChange={this.getRoute}>
                     { this.generateRoutes() }
                 </Picker>
