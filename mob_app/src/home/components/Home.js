@@ -98,7 +98,6 @@ export default class Home extends Component {
             console.log('create ride',response)
             if(response.status === 200 && response.data.id){
                 this.setState({...this.state, rideID: response.data.id, btnMsg: stopRideMsg}, () => {
-                    console.log('======================')
                     AsyncStorage.multiSet([['rideStatus', 'Active'], ['rideId', response.data.id.toString()]]);
                 })
 
